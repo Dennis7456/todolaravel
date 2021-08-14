@@ -52,7 +52,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/todos','TodosController@store');
     Route::patch('/todos/{todo}','TodosController@update');
     Route::delete('/todos/{todo}','TodosController@destroy');
-    Route::patch('/todoscheckAll','TodosController@updateAll');
+    Route::patch('/todosCheckAll','TodosController@updateAll');
     Route::delete('/todosDeleteCompleted','TodosController@destroyCompleted');
     
 });
