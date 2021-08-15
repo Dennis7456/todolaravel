@@ -18,7 +18,7 @@ class TodosController extends Controller
         $user = User::where('email', $request->id)->first();
 
         return Todo::where('user_id', auth()->user()->id)->get();
-
+        
     }
 
     /**
@@ -64,16 +64,15 @@ class TodosController extends Controller
         $todo->update($data);
 
         return response($todo, 200);
-
+        
     }
 
     public function updateAll(Request $request)
     {
-        //dd(auth()->user()->id);
         $data = $request->validate([
             'completed' => 'required|boolean',
         ]);
-        
+
         Todo::where('user_id', auth()->user()->id)->update($data);
 
         return response()->json('Updated', 200);
@@ -129,5 +128,3 @@ class TodosController extends Controller
 
 
 }
-
-

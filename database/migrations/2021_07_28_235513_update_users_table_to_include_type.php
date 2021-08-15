@@ -15,7 +15,7 @@ class UpdateUsersTableToIncludeType extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
              
-             $table->integer('type');
+             //$table->integer('type');
         });
     }
 
