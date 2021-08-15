@@ -18,7 +18,7 @@ class TodosController extends Controller
         $user = User::where('email', $request->id)->first();
 
         return Todo::where('user_id', auth()->user()->id)->get();
-        
+
     }
 
     /**
@@ -64,7 +64,7 @@ class TodosController extends Controller
         $todo->update($data);
 
         return response($todo, 200);
-        
+
     }
 
     public function updateAll(Request $request)
@@ -72,7 +72,7 @@ class TodosController extends Controller
         $data = $request->validate([
             'completed' => 'required|boolean',
         ]);
-
+        
         Todo::where('user_id', auth()->user()->id)->update($data);
 
         return response()->json('Updated', 200);
@@ -99,15 +99,16 @@ class TodosController extends Controller
     {
          // [6,9] todo ids we are passing in and want to delete
         // [5,6,9] all of the users todo ids
+        //Todo::where('user_id', auth()->user()->id)->get();
 
         $todosToDelete = $request->todos;
-
-        $userTodoIds = auth()->user()->todos->map(function ($todo) {
+        $userTodoItems = Todo::where('user_id', auth()->user()->id)->get();
+        $userTodoItemIds = $userTodoItems->map(function ($todo){
             return $todo->id;
         });
 
-        $valid = collect($todosToDelete)->every(function ($value, $key) use ($userTodoIds) {
-            return $userTodoIds->contains($value);
+        $valid = collect($todosToDelete)->every(function ($value, $key) use ($userTodoItemIds) {
+            return $userTodoItemIds->contains($value);
         });
 
         if (!$valid) {
@@ -128,3 +129,5 @@ class TodosController extends Controller
 
 
 }
+
+
